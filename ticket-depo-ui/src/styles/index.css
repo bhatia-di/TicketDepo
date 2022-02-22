@@ -1,0 +1,49 @@
+.border-info {
+    border-left-color: #1f939c !important;
+}
+
+.card-layout {
+    padding: 10px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-radius: 5px;
+}
+
+* {
+  font-family: 'Josefin Sans', sans-serif !important;
+}
+
+.color-aqua {
+    color: #1f939c;
+}
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.color-red {
+    color: red;
+
+}
+
+.card-jumbotron {
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+    background-color: #e9ecef;
+    border-radius: 0.3rem;
+}
+
+.text{
+  display: inline;
+  width: 100%;
+  white-space: pre-line;
+}
+
+.read-or-hide{
+  color: rgb(192,192,192);
+  cursor: pointer;
+}
+
+small {
+    font: 0.7rem;
+}
