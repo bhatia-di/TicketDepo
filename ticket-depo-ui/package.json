@@ -8,7 +8,7 @@
       "build": "webpack --mode=development",
       "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "proxy": "http://localhost:9000",
+    "proxy": "http://localhost:3000",
     "keywords": [],
     "author": "Diksha Bhatia",
     "license": "ISC",

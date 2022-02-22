@@ -6,11 +6,11 @@ app.use(express.json());
 
 //Importing USER Routes
 const userRoute = require('./routes/userRoute');
-app.use('/v1/user', userRoute);
+app.use('/api/v1/user', userRoute);
 
 //Importing health Routes
 const healthRoute = require('./routes/healthRoute');
-app.use('/healthz', healthRoute);
+app.use('/api/healthz', healthRoute);
 
 
 
