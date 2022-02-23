@@ -5,14 +5,59 @@ import ReactLoading from 'react-loading';
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { WithContext as ReactTags } from 'react-tag-input';
 import "../../styles/index.css";
+import * as APIURLS from "../../constants/APIConstants";
 
 export default function TicketCreatorPage() {
     const KeyCodes = { comma: 188, enter: 13};
       
     const delimiters = [KeyCodes.comma, KeyCodes.enter];
     const [tags, setTags] = React.useState([
-        { id: 'customerSupport', text: 'customerSupport' }
+        { id: 'support', text: 'support' }
       ]);
+      const [collaboratorsEmail, setCollaboratorsEmail] = React.useState(null);
+      const [description, setDescription] = React.useState();
+      const [subject, setSubject] = React.useState();
+      const [due_at, setDueAt] = React.useState();
+      const [priority, setPriority] = React.useState();
+      const [status, setStatus] = React.useState();
+      const [type, setType] = React.useState();
+
+      const createTicket = () => {
+          const params = 
+            {
+               "assignee_email": "dik@gmail.com",
+                "collaborators_email": [collaboratorsEmail],
+                "subject": subject,
+                "description": subject,
+                "due_at": due_at,
+                "priority": priority,
+                "status": status,
+                "tags": tags.map(tag => tag.text),
+                "type": type
+            };
+
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(params)
+            };
+            fetch(APIURLS.createTicketURL, requestOptions)
+            .then(response => {if (response.status == 200) {return response.json()} else {new Error()} })
+                  .then(result => {
+
+
+                      }).catch((error) => {
+                     setErrorMessage("Fetch API Call failed with an error");
+
+                      console.error("Fetch API Call failed with an error" + error);
+                      });
+
+
+
+          
+      }
+      
+
       const handleDelete = i => {
         setTags(tags.filter((tag, index) => index !== i));
       };
@@ -51,7 +96,7 @@ export default function TicketCreatorPage() {
 
                     <div className="col-5">
                         <Input id="collaboratorsEmail" name="collaboratorsEmail" 
-                            onChange={(event) => {console.log(event.target.value)}}
+                            onChange={(event) => {setCollaboratorsEmail(event.target.value)}}
                             placeholder="Add collaborators" type="email" />
 
 
@@ -66,7 +111,7 @@ export default function TicketCreatorPage() {
 
                     <div className="col-5">
                         <Input id="subject" name="subject" 
-                            onChange={(event) => {console.log(event.target.value)}}
+                            onChange={(event) => {setSubject(event.target.value)}}
                             placeholder="Add subject" type="text" />
 
 
@@ -80,7 +125,7 @@ export default function TicketCreatorPage() {
 
                     <div className="col-5">
                         <Input id="description" name="description" 
-                            onChange={(event) => {console.log(event.target.value)}}
+                            onChange={(event) => {setDescription(event.target.value)}}
                             placeholder="Add description of the task" type="textarea" />
 
 
@@ -94,7 +139,7 @@ export default function TicketCreatorPage() {
 
                     <div className="col-5">
                         <Input id="due_at" name="due_at" 
-                            onChange={(event) => {console.log(event.target.value)}}
+                            onChange={(event) => {setDueAt(event.target.value)}}
                             type="date" />
 
 
@@ -109,7 +154,7 @@ export default function TicketCreatorPage() {
 
                     <div className="col-5">
                         <Input id="priority" name="priority" 
-                            onChange={(event) => {console.log(event.target.value)}}
+                            onChange={(event) => {setPriority(event.target.value)}}
                             type="select">
                                 <option disabled defaultValue={true}> select valid priority</option>
                                 <option> urgent </option>
@@ -130,7 +175,7 @@ export default function TicketCreatorPage() {
 
                     <div className="col-5">
                         <Input id="status" name="status" 
-                            onChange={(event) => {console.log(event.target.value)}}
+                            onChange={(event) => {setStatus(event.target.value)}}
                             type="select">
                                 <option disabled defaultValue={true}> select status</option>
                                 <option> new </option>
@@ -153,7 +198,7 @@ export default function TicketCreatorPage() {
 
                     <div className="col-5">
                         <Input id="type" name="type" 
-                            onChange={(event) => {console.log(event.target.value)}}
+                            onChange={(event) => {setType(event.target.value)}}
                             type="select">
                                 <option disabled defaultValue={true}> select type</option>
                                 <option> problem </option>
@@ -199,7 +244,7 @@ export default function TicketCreatorPage() {
 
              <div className="row mt-2">
                     <div className="col-1">
-                    <Button className="color-back-aqua"> Create </Button>
+                    <Button className="color-back-aqua" onClick={createTicket}> Create </Button>
                     </div>
             </div>   
                 
