@@ -5,6 +5,7 @@
   "scripts": {
     "make-model": "npx sequelize-cli model:generate --name ticket --attributes first_name:string,last_name:string",
     "db-migrate": "npx sequelize-cli db:migrate",
+    "migrate-create": "npx sequelize-cli migration:create --name",
     "db-reset": "npx sequelize-cli db:migrate:undo:all",
     "db-undo": "npx sequelize-cli db:migrate:undo",
 

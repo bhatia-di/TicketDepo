@@ -8,6 +8,12 @@ app.use(express.json());
 const userRoute = require('./routes/userRoute');
 app.use('/api/v1/user', userRoute);
 
+//Importing Ticket Routes
+const ticketRoute = require('./routes/ticketRoute');
+app.use('/api/v1/ticket', ticketRoute);
+
+
+
 //Importing health Routes
 const healthRoute = require('./routes/healthRoute');
 app.use('/api/healthz', healthRoute);

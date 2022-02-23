@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
   },
 
  collaborators_email: {
-    type: Sequelize.STRING,
+    type: Sequelize.ARRAY(Sequelize.TEXT),
     allowNull: false
 },
 
@@ -38,15 +38,13 @@ due_at: {
   allowNull: false
 },
 priority: {
-  type: Sequelize.ARRAY(Sequelize.ENUM({
-    values: ["urgent", "high", "normal", "low"]
-})),
+  
+  type: Sequelize.ENUM("urgent", "high", "normal", "low"),
   allowNull: false
 },
 status: {
-  type: Sequelize.ARRAY(Sequelize.ENUM({
-    values: ["new", "open", "pending", "hold", "solved", "closed"]
-})),
+  type: Sequelize.ENUM("new", "open", "pending", "hold", "solved", "closed"),
+  defaultValue: "open",
   allowNull: false
 },
 subject: {
@@ -58,9 +56,8 @@ tags: {
   allowNull: true
 },
 type: {
-  type: Sequelize.ARRAY(Sequelize.ENUM({
-    values: ["problem", "incident", "question", "task"]
-})),
+  type: Sequelize.ENUM("problem", "incident", "question", "task"),
+  defaultValue: "task",
   allowNull: false
 }, 
   created_at: {
