@@ -12,7 +12,7 @@ return (
   >
     <NavbarBrand href="/">
 
-      Zendesk
+      Ticket-Depo
     </NavbarBrand>
     <NavbarToggler onClick={function noRefCheck(){}} />
     <Collapse navbar>

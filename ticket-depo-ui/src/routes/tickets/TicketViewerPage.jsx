@@ -28,18 +28,18 @@ export default function TicketViewerPage() {
 
 
   const fetchAllTickets = (pageLink) => {
-    const metaPageLinkValue = pageLink + "_cursor";
-    const metaPageValue = meta && meta.hasOwnProperty(metaPageLinkValue) ? meta[metaPageLinkValue] : null;
-    let params = metaPageValue == null ? {"pageSize": pageSize} : {"page": metaPageValue, "pageSize": pageSize, "pageLink": pageLink};
-    console.log(params);
+    // const metaPageLinkValue = pageLink + "_cursor";
+    // const metaPageValue = meta && meta.hasOwnProperty(metaPageLinkValue) ? meta[metaPageLinkValue] : null;
+    // let params = metaPageValue == null ? {"pageSize": pageSize} : {"page": metaPageValue, "pageSize": pageSize, "pageLink": pageLink};
+    // console.log(params);
     setTickets(null);
     setErrorMessage(null);
 
-    fetch(APIURLS.getTicketsURL + "?" + new URLSearchParams(params).toString())
+    fetch(APIURLS.getTicketsURL)
     .then(response => {if (response.status == 200) {return response.json()} else {new Error()} })
                   .then(result => {
 
-                      setTickets(result.tickets);
+                      setTickets(result);
                       setMeta(result.meta);
 
                       }).catch((error) => {
@@ -87,8 +87,8 @@ export default function TicketViewerPage() {
     <div className={"container-fluid"}>
     <div className={"card-layout"}>
        <h3 className={"color-aqua"}>
-        <FontAwesomeIcon icon={faClipboardList} color="#1f939c" className={"mr-2"} />
-        <span className={"ml-2"}>Let's view all tickets! </span>
+        <FontAwesomeIcon icon={faClipboardList} color="#1f939c" className={"mr-4"} />
+        <span className={"ml-2"}>  Assigned Tickets </span>
        </h3>
     </div>
 

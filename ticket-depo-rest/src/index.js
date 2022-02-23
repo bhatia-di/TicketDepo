@@ -10,7 +10,7 @@ app.use('/api/v1/user', userRoute);
 
 //Importing Ticket Routes
 const ticketRoute = require('./routes/ticketRoute');
-app.use('/api/v1/ticket', ticketRoute);
+app.use('/api/tickets', ticketRoute);
 
 
 

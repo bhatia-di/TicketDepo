@@ -55,3 +55,23 @@ exports.createTicket = async (req, res) => {
     }
 
 };
+
+
+exports.getAllTickets = async (req, res) => {
+
+    console.log("Fetching Ticket Information");
+    
+    await Ticket.findAll().then(ticketsInfo => {
+        console.log(typeof ticketsInfo);
+        res.status(200).send(ticketsInfo);
+        console.log("Ticket has been fetched")
+    }).catch(err => {
+
+        console.error(err.message);
+        res.status(500).send({
+            message: err.message || "Some error occurred while fetcing results."
+        });
+    });  
+
+};
+ 
