@@ -15,13 +15,12 @@ export default function DetailedTicketViewerBody(detailedTicketViewerBodyProps) 
     const [errorMessage, setErrorMessage] = useState(null);
 
     React.useEffect(() => {
-
+    
     if (Utils.isNonNull(detailedTicketViewerBodyProps.activeTicket)) {
-        const activeTicket = detailedTicketViewerBodyProps.activeTicket.split("-")[1];
-                if (parseInt(activeTicket) === detailedTicketViewerBodyProps.ticketId) {
-                    console.log("-----------Execute fetch--------------");
-                    fetchTicketWithId(activeTicket);
-                }
+        console.log("ACtive ")
+        const activeTicketId = detailedTicketViewerBodyProps.activeTicket.split(":")[1];
+        console.log("-----------Execute fetch--------------");
+        fetchTicketWithId(activeTicketId);
 
 
     }
@@ -34,12 +33,16 @@ export default function DetailedTicketViewerBody(detailedTicketViewerBodyProps) 
     const fetchTicketWithId = (ticketId) => {
 
         setTicket(null);
-        const params = {ticketId: ticketId};
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ticketId: ticketId })
+        };
 
-        fetch(APIURLS.getTicketWithIdURL + "?" + new URLSearchParams(params).toString())
+        fetch(APIURLS.getTicketWithIdURL, requestOptions)
         .then(response => response.json())
                       .then(result => {
-                          setTicket(result.ticket);
+                          setTicket(result);
                           }).catch((error) => {
                           console.error("Fetch API Call failed with an error" + error);
                           });

@@ -75,3 +75,22 @@ exports.getAllTickets = async (req, res) => {
 
 };
  
+
+exports.getDetailedTicket = async (req, res) => {
+
+    console.log("Fetching Detailed Ticket Information with an id");
+    const {ticketId} = req.body;
+    await Ticket.findOne({where: {id: ticketId}}).then(ticketsInfo => {
+        console.log(typeof ticketsInfo);
+        res.status(200).send(ticketsInfo);
+        console.log("Ticket with ID has been fetched");
+    }).catch(err => {
+
+        console.error(err.message);
+        res.status(500).send({
+            message: err.message || "Some error occurred while fetcing results."
+        });
+    });  
+
+};
+ 

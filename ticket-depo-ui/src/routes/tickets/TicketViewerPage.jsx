@@ -28,10 +28,7 @@ export default function TicketViewerPage() {
 
 
   const fetchAllTickets = (pageLink) => {
-    // const metaPageLinkValue = pageLink + "_cursor";
-    // const metaPageValue = meta && meta.hasOwnProperty(metaPageLinkValue) ? meta[metaPageLinkValue] : null;
-    // let params = metaPageValue == null ? {"pageSize": pageSize} : {"page": metaPageValue, "pageSize": pageSize, "pageLink": pageLink};
-    // console.log(params);
+  
     setTickets(null);
     setErrorMessage(null);
 
@@ -63,6 +60,7 @@ export default function TicketViewerPage() {
 
 
   const subjectHeaderClicked = (activeTicket) => {
+    console.log("subject header clicked");
     setActiveTicket(activeTicket);
 
   };
@@ -151,7 +149,7 @@ export default function TicketViewerPage() {
                    tickets.map((ticket, index) =>
 
                      <Accordion.Item key={"ticketaccordion" + index} eventKey={"accordion" + index + ""}>
-                         <Accordion.Header onClick={(event) => {subjectHeaderClicked("ticket-" + ticket.id)}} >
+                         <Accordion.Header onClick={(event) => {subjectHeaderClicked("ticket:" + ticket.id)}} >
                                 <h5>
                                 <FontAwesomeIcon icon={faClipboardList} className={"m-1"} />
                                    {ticket.subject}</h5>
@@ -191,7 +189,7 @@ export default function TicketViewerPage() {
   } else {
    return(
        <div className={"container-fluid"}>
-            <ReactLoading type={"spinningBubbles"} color={"#1f939c"} height={'20%'} width={'20%'} />
+            <ReactLoading type={"spinningBubbles"} color={"#1f939c"} height={'10%'} width={'15%'} />
       </div>
 
       );

@@ -11,10 +11,10 @@ export default function ReadMore(readMoreProps)  {
   };
 
   console.log(isReadMore);
-  console.log(isReadMore ? text.slice(0, 50) : text);
+  console.log(isReadMore ? text.slice(0, 200) : text);
   return (
     <p className="text">
-      {isReadMore ? text.slice(0, 100) : text}
+      {isReadMore ? text.slice(0, 200) : text}
       <span onClick={() => {toggleReadMore()}} className="read-or-hide">
         {isReadMore ? "...read more" : " show less"}
       </span>
