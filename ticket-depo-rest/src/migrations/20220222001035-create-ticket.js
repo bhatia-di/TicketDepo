@@ -4,9 +4,8 @@ module.exports = {
     await queryInterface.createTable('ticket', {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.UUID
       },
       assignee_email: {
         type: Sequelize.STRING,
@@ -48,11 +47,11 @@ module.exports = {
     defaultValue: "task",
     allowNull: false
   },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE
       }
