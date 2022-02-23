@@ -5,14 +5,16 @@ import TicketViewerPage from "./routes/tickets/TicketViewerPage";
 import Home from "./routes/home/Home";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Routes, Route, Link } from "react-router-dom";
+import TicketCreatorPage from "./routes/profile/TicketCreatorPage";
 
 
 export default function App() {
   return <React.Fragment>
   <Header/>
   <Routes>
-          <Route path="/about" element={<About />} />
-          <Route path="/tickets" element={<TicketViewerPage />} />
+          <Route path="/about" element={<Home />} />
+          <Route path="/dashboard" element={<TicketViewerPage />} />
+          <Route path="/you" element={<TicketCreatorPage />} />
           <Route path="/" element={<Home />} />
 
       </Routes>

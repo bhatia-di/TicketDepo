@@ -12,7 +12,7 @@ return (
   >
     <NavbarBrand href="/">
 
-      Ticket-Depo
+    <span className="color-aqua">Ticket-Depo</span>
     </NavbarBrand>
     <NavbarToggler onClick={function noRefCheck(){}} />
     <Collapse navbar>
@@ -21,13 +21,19 @@ return (
         navbar
       >
         <NavItem>
-          <NavLink href="/tickets" active>
-            Tickets
+          <NavLink href="/dashboard">
+            Dashboard
           </NavLink>
         </NavItem>
         <NavItem>
+          <NavLink href="/you" >
+            My Profile
+          </NavLink>
+        </NavItem>
+        
+        <NavItem>
           <NavLink href="/about" active>
-            About
+            About us
           </NavLink>
         </NavItem>
 
