@@ -61,7 +61,9 @@ exports.getAllTickets = async (req, res) => {
 
     console.log("Fetching Ticket Information");
     
-    await Ticket.findAll().then(ticketsInfo => {
+    await Ticket.findAll({order: [
+        ['updated_at', 'DESC']
+    ]}).then(ticketsInfo => {
         console.log(typeof ticketsInfo);
         res.status(200).send(ticketsInfo);
         console.log("Ticket has been fetched")

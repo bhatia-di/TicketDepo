@@ -6,6 +6,8 @@ import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { WithContext as ReactTags } from 'react-tag-input';
 import "../../styles/index.css";
 import * as APIURLS from "../../constants/APIConstants";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function TicketCreatorPage() {
     const KeyCodes = { comma: 188, enter: 13};
@@ -21,6 +23,8 @@ export default function TicketCreatorPage() {
       const [priority, setPriority] = React.useState();
       const [status, setStatus] = React.useState();
       const [type, setType] = React.useState();
+      const notifySuccess = () => toast.success("Your ticket was successfully created!");
+      const notifyError = (errormessage) => toast.error(errormessage);
 
       const createTicket = () => {
           const params = 
@@ -44,10 +48,14 @@ export default function TicketCreatorPage() {
             fetch(APIURLS.createTicketURL, requestOptions)
             .then(response => {if (response.status == 200) {return response.json()} else {new Error()} })
                   .then(result => {
-
+                        if(result.status == 200 ) notifySuccess();
+                        else {
+                            notifyError(result.message);
+                        }
 
                       }).catch((error) => {
-                     setErrorMessage("Fetch API Call failed with an error");
+                          notifyError("Creation failed!" + error.message);
+                          setErrorMessage("Fetch API Call failed with an error");
 
                       console.error("Fetch API Call failed with an error" + error);
                       });
@@ -78,6 +86,16 @@ export default function TicketCreatorPage() {
     
     return(
         <div className={"container-fluid"}>
+            <ToastContainer position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover />
+
            <div className={"card-layout"}>
              <h3 className={"color-aqua"}>
              <FontAwesomeIcon icon={faClipboardList} color="#1f939c" className={"mr-4"} />
