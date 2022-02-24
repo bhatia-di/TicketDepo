@@ -95,3 +95,42 @@ small {
     border: 1px solid #1f939c;
 
 }
+
+.example img {
+  width: 100%;
+  position: relative;
+}
+
+.example .overlay {
+  position: absolute;
+  top: 80px;
+  right: 15px;
+  font-weight: bold;
+  text-align: right;
+  font-size: 30px;
+}
+
+.example::after {
+  content: "Multi-line\00000a text";
+  position: absolute;
+  top: 80px;
+  white-space: pre;
+  right: 15px;
+  font-weight: bold;
+  text-align: right;
+  font-size: 30px;
+}
+
+header {
+  height: 800px;
+  width: 100%;
+  text-align: center;
+  padding-top: 100px;
+  color: white;
+  overflow: hidden;
+  background: #C04848;  /* fallback for old browsers */
+  background: linear-gradient(rgb(0,52,72,0.8), rgb(192,72,72,0.8)), url("https://ik.imagekit.io/ikmedia/blog/hero-image.jpeg");  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(rgba(0, 52, 72, 0.8), rgb(192,72,72,0.8)), url("https://ik.imagekit.io/ikmedia/blog/hero-image.jpeg"); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background-size: cover;
+  background-repeat: no-repeat;
+}

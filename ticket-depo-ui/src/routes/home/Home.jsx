@@ -2,20 +2,21 @@ import React from "react";
 import "../../styles/index.css";
 import { faClipboardList, faClipboardCheck, faChevronCircleLeft, faChevronCircleRight, faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from "reactstrap";
 
 
 export default function Home() {
     return(
-        <div className="container-fluid">
-            <div className={"card-layout"}>
-            <h3 className={"color-aqua"}>
-            <FontAwesomeIcon icon={faClipboardList} color="#1f939c" className={"mr-4"} />
-             <span className={"ml-2 p-1"}>  
-                   We are a ticket management company satisfying all you ticket needs
-             </span>
-            </h3>
-     </div>
-        </div>
+           <header>
+                <section class='hero-header'>
+                <h1>Ticket-Depo</h1>
+                <h2>To manage all your ticketing needs</h2>
+                <Button className="color-back-aqua">Sign-up</Button>
+                </section>
+            </header>
+
+
+           
         
     );
 
