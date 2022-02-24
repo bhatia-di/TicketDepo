@@ -32,7 +32,7 @@ export default function TicketCreatorPage() {
                "assignee_email": "dik@gmail.com",
                 "collaborators_email": [collaboratorsEmail],
                 "subject": subject,
-                "description": subject,
+                "description": description,
                 "due_at": due_at,
                 "priority": priority,
                 "status": status,
@@ -46,16 +46,23 @@ export default function TicketCreatorPage() {
                 body: JSON.stringify(params)
             };
             fetch(APIURLS.createTicketURL, requestOptions)
-            .then(response => {if (response.status == 200) {return response.json()} else {new Error()} })
-                  .then(result => {
-                        if(result.status == 200 ) notifySuccess();
-                        else {
-                            notifyError(result.message);
-                        }
+            .then(response => {
+                if (response.status == 201) {
+                    notifySuccess();
+                    setCollaboratorsEmail(null);
+                    setDescription("");
+                    setDueAt(null);
+                    setPriority(null);
+                    setTags([]);
+                    setType(null);
+                    setSubject("");   
+                    return response.json();
+                } else {
 
-                      }).catch((error) => {
-                          notifyError("Creation failed!" + error.message);
-                          setErrorMessage("Fetch API Call failed with an error");
+                    new Error();
+                } })
+                  .catch((error) => {
+                      notifyError("Creation failed!" + error.message);
 
                       console.error("Fetch API Call failed with an error" + error);
                       });

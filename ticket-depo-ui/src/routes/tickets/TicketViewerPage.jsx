@@ -4,17 +4,20 @@ import * as APIURLS from "../../constants/APIConstants";
 import * as Utils from "../../utils/Utils";
 import TypeBadge from "../../components/TypeBadge";
 import Accordion from 'react-bootstrap/Accordion';
-import {Input} from 'reactstrap';
+import {Button, ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle, Input, InputGroup} from 'reactstrap';
 import DetailedTicketViewerBody from "./DetailedTicketViewerBody";
 import "../../styles/index.css";
-import { faClipboardList, faClipboardCheck, faChevronCircleLeft, faChevronCircleRight, faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
+import { faClipboardList, faClipboardCheck, faChevronCircleLeft, faChevronCircleRight, faExclamationTriangle, faSearch, faRedo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function TicketViewerPage() {
+
   const [tickets, setTickets] = useState(null);
   const [errormessage, setErrorMessage] = useState(null);
   const [meta, setMeta] = useState(null);
-  const [pageSize, setPageSize] = useState(25);
+  const [filterProperty, setFilterProperty] = useState(null);
+  const [filterPropertyValue, setFilterPropertyValue] = useState("");
+
   const [activeTicket, setActiveTicket] = useState(null);
 
 
@@ -27,8 +30,12 @@ export default function TicketViewerPage() {
   }, []);
 
 
+
+
   const fetchAllTickets = (pageLink) => {
   
+    setFilterProperty("--");
+    setFilterPropertyValue("");
     setTickets(null);
     setErrorMessage(null);
 
@@ -70,7 +77,8 @@ export default function TicketViewerPage() {
 
     return(<div className="card-jumbotron">
                        <div className="container">
-                         <h1 className="display-4 color-red"><FontAwesomeIcon icon={faExclamationTriangle} color="red" className={"mr-2"} />Connection Failed</h1>
+                         <h1 className="display-4 color-red">
+                           <FontAwesomeIcon icon={faExclamationTriangle} color="red" className={"mr-2"} />Connection Failed</h1>
                          <p className="lead">Opps! No tickets available for view. Please hit refresh!</p>
                          <p className="lead">{errormessage}</p>
 
@@ -92,54 +100,55 @@ export default function TicketViewerPage() {
 
     <div className={"row mb-2"}>
         <div className={"col-4"}>
-        </div>
-        <div className={"col-8"}>
-
-        <div className={"row cursor-pointer"}>
-        <div className="col-3">
-             <small className={"float-right"}> Total Count of Tickets: {tickets.length} </small>
-        </div>
-        <div className={"col-3"}>
-          <a onClick={() => {useMetaAndSetPageLink("before")}} className={"p-1"}>
-            <FontAwesomeIcon icon={faChevronCircleLeft} color="#1f939c" size="lg" /></a>
-          <a onClick={() => {useMetaAndSetPageLink("after")}} className={"p-1"} >
-            <FontAwesomeIcon icon={faChevronCircleRight} color="#1f939c" size="lg" /></a>
-          <span className={"p-1"}>Show </span>
-
-        </div>
-        <div className={"col-3 p-0"}>
-            <Input onChange={(event) => {setPageSize(event?.target?.value)}}
+        <InputGroup>
+        <Input onChange={(event) => {setFilterProperty(event?.target?.value)}}
                                 id="pageSizeInput"
                                 name="pageSizeInput"
-                                value={pageSize}
+                                value={filterProperty}
                                 className={"cursor-pointer"}
                                 type="select"
                               >
-                                <option value={25}>
-                                  25
+                                <option value={"--"}>
+                                  --
                                 </option>
-                                <option value={30}>
-                                  30
+                                
+                                <option value={"status"}>
+                                  Status
                                 </option>
-                                <option value={35}>
-                                  35
+                                <option value={"type"}>
+                                  Type
                                 </option>
-                                <option value={40}>
-                                  40
+                                <option value={"priority"}>
+                                  Priority
                                 </option>
-                                <option value={50}>
-                                  50
+                                <option value={"tags"}>
+                                  Tags
                                 </option>
+                                
                               </Input>
+          <Input id="filterPropertyValue" name="filterPropertyValue" 
+                            value={filterPropertyValue}
+                            onChange={(event) => {setFilterPropertyValue(event.target.value)}}
+                            placeholder="Search.. " type="text" />
+          <Button>
+              <FontAwesomeIcon icon={faSearch} className={"m-1"} />
+
+          </Button>                  
+                      
+        </InputGroup>
+        
+
         </div>
-        <div className={"col-3"}>
-        <span className={"float-left"}>Results</span>
-        </div>
-        </div>
+        <div className={"col-8"}>
+        <Button onClick={fetchAllTickets}>
+              <FontAwesomeIcon icon={faRedo} className={"m-1"} />
+
+          </Button>
 
 
+        
         </div>
-
+      
     </div>
 
     {
@@ -148,7 +157,16 @@ export default function TicketViewerPage() {
         ?  <Accordion>
 
                    {
-                   tickets.map((ticket, index) =>
+                   tickets.filter((t) => {
+                     if(filterProperty == null || filterPropertyValue == "" || filterProperty == "--") {
+                       return true;
+                     } else if (filterProperty == "tags") {
+                        return t["tags"].includes(filterPropertyValue);
+                     }
+                     else {
+                       return t[filterProperty] === filterPropertyValue;
+                     }
+                   }).map((ticket, index) =>
 
                      <Accordion.Item key={"ticketaccordion" + index} eventKey={"accordion" + index + ""}>
                          <Accordion.Header onClick={(event) => {subjectHeaderClicked("ticket:" + ticket.id)}} >
