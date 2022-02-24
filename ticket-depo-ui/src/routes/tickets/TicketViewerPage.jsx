@@ -100,8 +100,10 @@ export default function TicketViewerPage() {
              <small className={"float-right"}> Total Count of Tickets: {tickets.length} </small>
         </div>
         <div className={"col-3"}>
-          <a onClick={() => {useMetaAndSetPageLink("before")}} className={"p-1"}><FontAwesomeIcon icon={faChevronCircleLeft} color="#1f939c" size="lg" /></a>
-          <a onClick={() => {useMetaAndSetPageLink("after")}} className={"p-1"} ><FontAwesomeIcon icon={faChevronCircleRight} color="#1f939c" size="lg" /></a>
+          <a onClick={() => {useMetaAndSetPageLink("before")}} className={"p-1"}>
+            <FontAwesomeIcon icon={faChevronCircleLeft} color="#1f939c" size="lg" /></a>
+          <a onClick={() => {useMetaAndSetPageLink("after")}} className={"p-1"} >
+            <FontAwesomeIcon icon={faChevronCircleRight} color="#1f939c" size="lg" /></a>
           <span className={"p-1"}>Show </span>
 
         </div>
